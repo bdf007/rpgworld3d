@@ -17,10 +17,13 @@ public class PlayerCtrl : MonoBehaviour
     private CharacterController controller;
     private Animator anim;
     private AudioSource audioSource;
+    public GameObject sword;
 
     // Start is called before the first frame update
     void Start()
     {
+        // desactiver le curseur de la souris
+        Cursor.lockState = CursorLockMode.Locked;
         // récupération du CharacterController attaché au joueur
         controller = GetComponent<CharacterController>();
         // récupération de l'Animator attaché au joueur
@@ -59,8 +62,9 @@ public class PlayerCtrl : MonoBehaviour
 
     public void Attack()
     {
-        // si on appuie sur le bouton gauche de la souris on attaque
-        if (Input.GetMouseButtonDown(0))
+
+        // si on appuie sur le bouton gauche de la souris et qu'on a une épée on attaque
+        if (Input.GetMouseButtonDown(0) && sword.activeSelf)
         {
             audioSource.PlayOneShot(swordSFx[Random.Range(0,3)]);
             anim.SetTrigger("attack");
